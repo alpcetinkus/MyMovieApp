@@ -1,8 +1,36 @@
-package com.example.mymovieapp.models
+package com.example.mymovieapp.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class BestFromYearResponse(
+    @SerializedName("results")
+    val bestFromYearMovie : List<BestFromYearMovie>
+
+): Parcelable {
+    constructor() : this(mutableListOf())
+}
+
+@Parcelize
+data class FromTurkeyResponse(
+    @SerializedName("results")
+    val fromTurkeyMovie : List<FromTurkey>
+
+): Parcelable {
+    constructor() : this(mutableListOf())
+}
+
+@Parcelize
+data class UpComingResponse(
+    @SerializedName("results")
+    val UpComingMovies : List<UpComingMovie>
+
+): Parcelable {
+    constructor() : this(mutableListOf())
+}
+
 @Parcelize
 data class PopularMovieResponse(
     @SerializedName("results")
@@ -11,6 +39,17 @@ data class PopularMovieResponse(
 ): Parcelable {
     constructor() : this(mutableListOf())
 }
+
+@Parcelize
+data class DetailsResponse(
+    @SerializedName("")
+    val detailMovie : List<DetailMovie>
+
+): Parcelable {
+    constructor() : this(mutableListOf())
+}
+
+
 
 
 // Bu kod, TrendResponse adlı bir veri sınıfı içerir.
