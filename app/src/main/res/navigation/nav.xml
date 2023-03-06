@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/genresListFragment"
+        android:name="com.example.mymovieapp.activitys.GenresListFragment"
+        android:label="GenresListFragment"
+        tools:layout="@layout/fragment_genres_list"/>
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.mymovieapp.activitys.HomeFragment"
+        android:label="GenresListFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/goToDetail"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+
+
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.mymovieapp.activitys.FavoriteFragment"
+        android:label="GenresListFragment"
+        tools:layout="@layout/fragment_favorite"/>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.mymovieapp.activitys.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail"/>
+    <fragment
+        android:id="@+id/genreToMovieFragment"
+        android:name="com.example.mymovieapp.activitys.GenreToMovieFragment"
+        android:label="GenreToMovieFragment"
+        tools:layout="@layout/fragment_genre_to_movie"/>
+
+</navigation>
