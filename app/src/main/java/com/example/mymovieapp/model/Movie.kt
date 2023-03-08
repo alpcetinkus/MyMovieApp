@@ -95,6 +95,7 @@ data class DetailMovie(
 
 
 
+
 // Bu kod,
 // trendde olan filmler ve diziler  için gerekli olan özellikleri içeren bir model sınıfı tanımlar.
 

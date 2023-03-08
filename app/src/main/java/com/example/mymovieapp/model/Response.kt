@@ -52,6 +52,11 @@ data class DetailsResponse(
 
 
 
+
+
+
+
+
 // Bu kod, TrendResponse adlı bir veri sınıfı içerir.
 // Bu sınıf, bir API'den dönen popüler film verilerini temsil etmek için kullanılır.
 //

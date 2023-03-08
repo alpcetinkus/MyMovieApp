@@ -17,7 +17,6 @@ import com.example.mymovieapp.model.*
 import com.example.mymovieapp.service.MovieApiInterfaces
 import com.example.mymovieapp.service.MovieApiService
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.popular_movie_card.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
