@@ -1,40 +1,42 @@
 package com.example.mymovieapp.service
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MovieApiService {
-
-    companion object{
-        private const val BASE_URL = "https://api.themoviedb.org"
-        private var retrofit : Retrofit? = null
-
-        fun getInstance() : Retrofit{
-            if(retrofit == null){
-                retrofit = Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-            }
-            return retrofit!!
+    companion object {
+        val BASE_URL = "https://api.themoviedb.org"
+        fun getApiImplementation(): MovieApiInterfaces {
+            return getClient(BASE_URL).create(MovieApiInterfaces::class.java)
+        }
+        fun getClient(baseUrl: String): Retrofit {
+            return Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(getOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        fun getOkHttpClient(): OkHttpClient {
+            return OkHttpClient.Builder()
+                .addInterceptor(
+                    HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+                )
+                .build()
         }
     }
 }
 
-
-// Bu kod,
-// Retrofit kütüphanesi ile bir API servisine bağlanmak için kullanılan bir fonksiyon içerir.
+//Bu, bir MovieApiService sınıfıdır ve birkaç fonksiyon içerir.
+//Companion object, sınıfın üyesi olmayan bir nesne oluşturmanın bir yoludur ve BASE_URL adlı sabit bir özelliği içerir.
+//Bu özellik, tüm API çağrıları için kullanılacak olan ana URL'yi temsil eder.
 //
-// Bu fonksiyon, API isteklerinin yapıldığı Retrofit nesnesini oluşturur ve döndürür.
+//getApiImplementation(), Retrofit örneği alır ve MovieApiInterfaces arabirimine dönüştürür.
+//Bu, MovieApiInterfaces arabirimini uygulayan bir nesne döndürür ve API çağrılarını yapmak için kullanılabilir.
 //
-// getInstance fonksiyonu, öncelikle bir sabit olan BASE_URL ile birlikte
-// Retrofit nesnesinin oluşturulması için gerekli ayarları içeren bir Retrofit.Builder örneği oluşturur.
-// Bu örnekte GsonConverterFactory sınıfı kullanılarak JSON verileri Gson kütüphanesiyle dönüştürülür.
+//getClient(), Retrofit nesnesi oluşturur ve BASE_URL ve GsonConverterFactory kullanarak yapılandırır.
 //
-// Sonra, Retrofit nesnesi, builder yardımıyla oluşturulur ve sınıf seviyesinde bir nullable değişkende saklanır.
-// getInstance fonksiyonu, retrofit değişkeninin null olup olmadığını kontrol eder.
-// Eğer null ise, retrofit değişkeni, builder tarafından oluşturulan Retrofit nesnesi ile tanımlanır ve döndürülür.
-// Eğer retrofit değişkeni null değilse, zaten bir Retrofit nesnesi oluşturulmuştur ve bu nesne döndürülür.
-//
-// Bu şekilde, getInstance fonksiyonu, uygulama boyunca tek bir Retrofit nesnesinin oluşturulmasını ve paylaşılmasını sağlar.
-// Bu sayede, API istekleri sırasında tekrar tekrar Retrofit nesnesi oluşturmaya gerek kalmaz.
+//getOkHttpClient(), HTTP isteklerini yürütmek için bir OkHttpClient örneği döndürür.
+//Bu örneğe, HTTP isteklerini loglamak için HttpLoggingInterceptor eklendi.
+//Bu, geliştirme sırasında hata ayıklama yapmak için kullanılabilir.
