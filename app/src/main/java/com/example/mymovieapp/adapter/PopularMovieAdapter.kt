@@ -8,65 +8,57 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mymovieapp.R
-import com.example.mymovieapp.model.PopularMovie
+import com.example.mymovieapp.model.home.ResultPopular
+import kotlinx.android.synthetic.main.genres_list_card.view.*
 import kotlinx.android.synthetic.main.movie_card.*
 import kotlinx.android.synthetic.main.movie_card.view.*
 
 
-class PopularMovieAdapter(
-    private val movies: List<PopularMovie>
-) : RecyclerView.Adapter<PopularMovieAdapter.MovieViewHolder>() {
-    class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class PopularMovieAdapter(private var movies: List<ResultPopular>,val clickListener: DetailClickInterface )
+    : RecyclerView.Adapter<PopularMovieAdapter.CardPopularListDesign>() {
 
+
+    class CardPopularListDesign(view: View) : RecyclerView.ViewHolder(view) {
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val design =
-            LayoutInflater.from(parent.context).inflate(R.layout.movie_card, parent, false)
-        return MovieViewHolder(design)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardPopularListDesign {
+        val design = LayoutInflater.from(parent.context).inflate(R.layout.movie_card, parent, false)
+        return CardPopularListDesign(design)
+    }
+
+    override fun onBindViewHolder(holder: CardPopularListDesign, position: Int) {
+        val movie = movies[position]
+
+        Glide.with(holder.itemView.context)
+            .load("https://image.tmdb.org/t/p/w400${movie.poster_path}")
+            .into(holder.itemView.iv_movie)
+
+        holder.itemView.cardView_movie.setOnClickListener {
+            val bundle = bundleOf("movieIdKey" to movie.id)
+            Navigation.findNavController(it).navigate(R.id.goToDetail,bundle)
+        }
+
     }
 
     override fun getItemCount(): Int {
         return movies.size
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val media = movies[position]
 
-        Glide.with(holder.itemView.context)
-            .load("https://image.tmdb.org/t/p/w400${media.poster}")
-//            .apply(RequestOptions().override(500, 700))
-            .into(holder.itemView.iv_movie)
-
-        holder.itemView.cardView_movie.setOnClickListener {
-            val bundle = bundleOf("movieIdKey" to media.id)
-            Navigation.findNavController(it).navigate(R.id.goToDetail,bundle)
-        }
-    }
+}
+interface DetailClickInterface {
+    fun onDetailClick(id: String)
 }
 
-// PopularMovieAtapter sınıfı:
-// RecyclerView.Adapter sınıfını genişleterek bir adaptör oluşturur.
-// Bu adaptör, PopularMovie tipindeki bir liste alır
-// ve her bir öğeyi göstermek için bir RecyclerView öğesi oluşturur.
+//Bu bir PopularMovieAdapter sınıfıdır. Bu sınıf,
+//ResultPopular tipinde bir film listesini RecyclerView ile eşleştirir ve her film öğesini görüntülemek için özel bir görünüm tasarımını kullanır.
 //
+//Sınıf, clickListener parametresi aracılığıyla tıklama olaylarını dinleyen bir DetailClickInterface arayüzünü uygular.
 //
-// MovieViewHolder sınıfı:
-// bir View öğesi içindeki öğeleri temsil eden RecyclerView.
-// ViewHolder sınıfını genişletir. Bu sınıf, onCreateViewHolder yönteminde
-// kullanılacak olan View öğelerini tanımlar.
+//CardPopularListDesign iç sınıfı, her film öğesi için kullanılan özel görünüm tasarımını temsil eder.
+//onCreateViewHolder() fonksiyonu, her film öğesi için bir görünüm tasarımı oluşturur.
+//onBindViewHolder() fonksiyonu, her film öğesi için oluşturulan görünüm tasarımına verileri bağlar ve tıklama olaylarını yönetir.
+//getItemCount() fonksiyonu, listedeki film sayısını döndürür.
 //
-//
-// onCreateViewHolder yöntemi:
-// MovieViewHolder sınıfını kullanarak her bir RecyclerView öğesi için bir görünüm oluşturur.
-// Burada, LayoutInflater sınıfı kullanılarak bir görünüm oluşturulur ve döndürülür.
-//
-//
-// getItemCount yöntemi:
-// adaptörün gösterilecek öğe sayısını döndürür.
-// Burada, movies listesinin boyutu döndürülür.
-//
-//
-// onBindViewHolder yöntemi:
-// her bir öğe için verileri görünüme bağlar.
-// Burada, Glide kütüphanesi kullanılarak bir resim yüklenir ve görünüme bağlanır.
+//DetailClickInterface arayüzü, bir film öğesine tıklandığında gerçekleştirilecek eylemi tanımlayan onDetailClick() fonksiyonunu içerir.
+

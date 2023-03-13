@@ -8,30 +8,28 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mymovieapp.R
-
-import com.example.mymovieapp.model.home.ResultPopular
-import com.example.mymovieapp.model.home.UpComingResult
+import com.example.mymovieapp.model.home.ResultBestYear
 import kotlinx.android.synthetic.main.movie_card.view.*
 
 
-class UpComingAdapter(private var movies: List<UpComingResult> )
-    : RecyclerView.Adapter<UpComingAdapter.CardUpComingListDesign>() {
+class BestYearAdapter(private var movies: List<ResultBestYear> )
+    : RecyclerView.Adapter<BestYearAdapter.CardBestYearListDesign>() {
 
 
-    class CardUpComingListDesign(view: View) : RecyclerView.ViewHolder(view) {
+    class CardBestYearListDesign(view: View) : RecyclerView.ViewHolder(view) {
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardUpComingListDesign {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardBestYearListDesign {
         val design = LayoutInflater.from(parent.context).inflate(R.layout.movie_card, parent, false)
-        return CardUpComingListDesign(design)
+        return CardBestYearListDesign(design)
     }
 
-    override fun onBindViewHolder(holder: CardUpComingListDesign, position: Int) {
+    override fun onBindViewHolder(holder: CardBestYearListDesign, position: Int) {
         val movie = movies[position]
 
-        Glide.with(holder.itemView.context)
-            .load("https://image.tmdb.org/t/p/w400${movie.poster_path}")
-            .into(holder.itemView.iv_movie)
+            Glide.with(holder.itemView.context)
+                .load("https://image.tmdb.org/t/p/w400${movie.poster_path}")
+                .into(holder.itemView.iv_movie)
 
         holder.itemView.cardView_movie.setOnClickListener {
             val bundle = bundleOf("movieIdKey" to movie.id)
