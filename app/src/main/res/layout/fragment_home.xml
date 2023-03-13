@@ -21,7 +21,7 @@
             android:orientation="vertical" >
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rc_trending"
+                android:id="@+id/rc_popular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
@@ -43,9 +43,9 @@
                 android:text="Best From 2022"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@id/rc_person_popular"
+                app:layout_constraintBottom_toTopOf="@id/rc_best_year"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rc_trending" />
+                app:layout_constraintTop_toBottomOf="@id/rc_popular" />
 
             <TextView
                 android:id="@+id/personPopularSeeAllTv"
@@ -56,12 +56,12 @@
                 android:text="See All"
                 android:textColor="#F3DDDD"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@id/rc_person_popular"
+                app:layout_constraintBottom_toTopOf="@id/rc_best_year"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rc_trending" />
+                app:layout_constraintTop_toBottomOf="@id/rc_popular" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rc_person_popular"
+                android:id="@+id/rc_best_year"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
@@ -84,7 +84,7 @@
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@id/rc_upcoming"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rc_person_popular"/>
+                app:layout_constraintTop_toBottomOf="@id/rc_best_year"/>
 
 
             <androidx.recyclerview.widget.RecyclerView
